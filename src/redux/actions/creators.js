@@ -16,6 +16,8 @@ export function move(coords) {
 /**
  * setSuccessValue - set win amount of point
  *
+ * P.S - I need this action for setting an amount of score to win :)
+ *
  * @param {number} number - the number off cells that bring the success
  * @return {object} - action creator
  */
