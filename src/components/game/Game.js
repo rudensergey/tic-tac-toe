@@ -1,8 +1,9 @@
 import React from "react";
-import {Cell} from '../library'
+import { Cell } from "../library";
 import "./--default.css";
 
 /**
+ * Game represents main component with cells inside
  *
  * @param {props} props - includes:
  * @param {number} initialHeight - amount rows in this table
