@@ -1,6 +1,6 @@
 import React from "react";
 import "./style/app.css";
-import { ExtendLayer } from "./components/library";
+import ExtendLayer from "./components/extendlayer/Extendlayer";
 
 /**
  * Main app component

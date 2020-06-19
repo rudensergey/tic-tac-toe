@@ -1,5 +1,6 @@
 import React from "react";
-import { Cell } from "../library";
+import { connect } from "react-redux";
+import Cell from "../cell/Cell";
 import "./--default.css";
 
 /**
@@ -11,7 +12,7 @@ import "./--default.css";
  *
  * @return {HTMLElement}
  */
-export const Game = (props) => {
+const Game = (props) => {
     const { initialHeight, initialWidth } = props;
 
     /**
@@ -46,3 +47,5 @@ export const Game = (props) => {
         </div>
     );
 };
+
+export default connect()(Game);

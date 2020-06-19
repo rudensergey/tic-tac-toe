@@ -9,7 +9,7 @@ import "./--default.css";
  * @param {string | boolean} status - current status of this cell: (true = tac / false = toe / success = success / "" = empty)
  * @return {HTMLElement}
  */
-export const Cell = (props) => {
+const Cell = (props) => {
     const {
         status,
         coords: { aIndex: x, bIndex: y },
@@ -51,3 +51,5 @@ export const Cell = (props) => {
         </div>
     );
 };
+
+export default Cell;

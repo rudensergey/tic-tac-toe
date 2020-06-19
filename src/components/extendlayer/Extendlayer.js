@@ -1,12 +1,12 @@
 import React from "react";
-import { Game } from "../library";
+import Game from "../game/Game";
 import "./--default.css";
 
 /**
  * ExtendLayer - represent layer which calculate the screen width, heigth and push it to the props
  * @return {Component}
  */
-export const ExtendLayer = () => {
+const ExtendLayer = () => {
     // const [width, setWidth] = useState(window.innerWidth);
     // const [height, setHeight] = useState(window.innerHeight);
 
@@ -32,3 +32,5 @@ export const ExtendLayer = () => {
         </div>
     );
 };
+
+export default ExtendLayer;
