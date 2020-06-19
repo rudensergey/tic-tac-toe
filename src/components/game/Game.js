@@ -22,7 +22,7 @@ export const Game = (props) => {
      * @return {Array}
      */
     const createMatrix = (h, w) =>
-        new Array(h).fill().map(() => new Array(w).fill(["", ""]));
+        new Array(h).fill().map(() => new Array(w).fill([""]));
 
     console.log(createMatrix(initialHeight, initialWidth));
 
@@ -39,7 +39,7 @@ export const Game = (props) => {
                     <Cell
                         coords={{ aIndex, bIndex }}
                         key={aIndex + bIndex}
-                        status={b[1]}
+                        status={b[0]}
                     />
                 ))
             )}
