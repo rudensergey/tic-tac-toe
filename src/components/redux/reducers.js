@@ -40,12 +40,7 @@ function succesValueReducer(state = 3, action) {
 function matrixReducer(state = createMatrix(7, 10), action) {
     switch (action.type) {
         case MAKE_A_MOVE:
-            return {
-                ...state,
-                ...{
-                    matrix: changeCell(action),
-                },
-            };
+            return changeCell();
         default:
             return state;
     }
@@ -59,7 +54,7 @@ function matrixReducer(state = createMatrix(7, 10), action) {
      */
     function changeCell() {
         const [x, y] = action.coords.split(",");
-        const newMatrix = state.matrix.slice();
+        const newMatrix = state.slice();
         if (newMatrix[y][x] !== null) return state;
         newMatrix[y][x] = true;
 

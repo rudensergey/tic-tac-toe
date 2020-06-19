@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { move } from "../redux/actions/creators";
 import "./--default.css";
 
 /**
@@ -13,13 +15,13 @@ const Cell = (props) => {
     const {
         status,
         coords: { aIndex: x, bIndex: y },
+        move,
     } = props;
 
-    const [stat, setStat] = useState(status);
     let name;
     let classNames;
 
-    switch (stat) {
+    switch (status) {
         case true:
             name = "O";
             classNames = "cell-tac";
@@ -42,9 +44,9 @@ const Cell = (props) => {
             className={"cell " + classNames}
             key={x + y}
             onClick={() => {
-                stat === true || stat === false
+                status !== null
                     ? alert("Хватит меня нажимать!")
-                    : setStat(false);
+                    : move(`${y},${x}`);
             }}
         >
             <p>{name}</p>
@@ -52,4 +54,8 @@ const Cell = (props) => {
     );
 };
 
-export default Cell;
+const mapDispatchToProps = {
+    move,
+};
+
+export default connect(null, mapDispatchToProps)(Cell);
