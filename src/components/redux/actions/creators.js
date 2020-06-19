@@ -31,6 +31,9 @@ export function setSuccesValue(number) {
 /**
  * MoveTurn - set turn for next player
  *
+ * P.S - I can change this turn-order with using only React and remove this action, but if we're gonna follow the Redux guidelines -
+ * we need to put all logic inside
+ *
  * @param {boolean} value - current order turn
  * @return {object} - action creator
  */

@@ -65,11 +65,6 @@ const Cell = (props) => {
     );
 };
 
-const mapDispatchToProps = {
-    move,
-    changeTurn,
-};
-
 /**
  * mapStateToProps - represents FC which leads redux state value to props of react component
  *
@@ -82,4 +77,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cell);
+export default connect(mapStateToProps, { move, changeTurn })(Cell);

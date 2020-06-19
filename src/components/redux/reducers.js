@@ -1,5 +1,8 @@
+/* eslint-disable require-jsdoc */
 import { combineReducers } from "redux";
-import { MAKE_A_MOVE, SET_SUCCESS_VALUE, CHANGE_TURN } from "./actions/types";
+import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
+
+// FUNCTIONS
 
 /**
  * Create matrix - creates new matrix based on the input
@@ -13,6 +16,27 @@ const createMatrix = (h, w) => {
     arr[0][0] = true;
     return arr;
 };
+
+/**
+ * changeCell - edit certain cell in matrix and return new one
+ *
+ * @param {object} data - x and y position for the matrix
+ * @param {Array} state - origin matrix
+ * @return {Array} - return new matrix with a changed cell
+ */
+function changeCell(data, state) {
+    const {
+        coords: [x, y],
+        moveTurn,
+    } = data;
+    const newMatrix = state.slice();
+    if (newMatrix[y][x] !== null) return state;
+    newMatrix[y][x] = moveTurn;
+
+    return newMatrix;
+}
+
+// REDUCERS
 
 /**
  * SuccessVelueReducer - changes amount of point to win
@@ -40,28 +64,9 @@ function succesValueReducer(state = 3, action) {
 function matrixReducer(state = createMatrix(7, 10), action) {
     switch (action.type) {
         case MAKE_A_MOVE:
-            return changeCell();
+            return changeCell(action.data, state);
         default:
             return state;
-    }
-
-    /**
-     * changeCell - edit certain cell in matrix and return new one
-     *
-     * @param {number} x - position in row
-     * @param {number} y - position in column
-     * @return {Array} - return new matrix with a changed cell
-     */
-    function changeCell() {
-        const {
-            coords: [x, y],
-            moveTurn,
-        } = action.data;
-        const newMatrix = state.slice();
-        if (newMatrix[y][x] !== null) return state;
-        newMatrix[y][x] = moveTurn;
-
-        return newMatrix;
     }
 }
 
@@ -69,17 +74,9 @@ function matrixReducer(state = createMatrix(7, 10), action) {
  * SuccessVelueReducer - changes amount of point to win
  *
  * @param {object} state - amount points
- * @param {object} action - action creator
- * @return {object}
+ * @return {boolean}
  */
-function turnReducer(state = true, action) {
-    switch (action.value) {
-        case CHANGE_TURN:
-            return !state;
-        default:
-            return !state;
-    }
-}
+const turnReducer = (state = true) => !state;
 
 export const ticApp = combineReducers({
     succesValueReducer,
