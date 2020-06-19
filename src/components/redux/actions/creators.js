@@ -1,15 +1,15 @@
-import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./types";
+import { MAKE_A_MOVE, SET_SUCCESS_VALUE, CHANGE_TURN } from "./types";
 
 /**
  * move - return
  *
- * @param {coords} coords - input data which includes x and y coordintates of a cell in the matrix
+ * @param {coords} data - input data which includes x and y coordintates of a cell in the matrix + move turn
  * @return {actionCrea} - action creator
  */
-export function move(coords) {
+export function move(data) {
     return {
         type: MAKE_A_MOVE,
-        coords,
+        data,
     };
 }
 
@@ -25,5 +25,18 @@ export function setSuccesValue(number) {
     return {
         type: SET_SUCCESS_VALUE,
         number,
+    };
+}
+
+/**
+ * MoveTurn - set turn for next player
+ *
+ * @param {boolean} value - current order turn
+ * @return {object} - action creator
+ */
+export function changeTurn(value) {
+    return {
+        type: CHANGE_TURN,
+        value,
     };
 }

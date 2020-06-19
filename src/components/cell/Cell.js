@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { move } from "../redux/actions/creators";
+import { move, changeTurn } from "../redux/actions/creators";
 import "./--default.css";
 
 /**
@@ -16,6 +16,7 @@ const Cell = (props) => {
         status,
         coords: { aIndex: x, bIndex: y },
         move,
+        turn,
     } = props;
 
     let name;
@@ -39,15 +40,25 @@ const Cell = (props) => {
             classNames = "";
     }
 
+    /**
+     * onClickHandler - does two actions:
+     * - puting the cell coordinates and move turn into the redux
+     * - changing the turn order
+     */
+    const onClickHandler = () => {
+        if (status !== null) {
+            alert("Хватит меня нажимать!");
+        } else {
+            move({ coords: [y, x], moveTurn: turn });
+            changeTurn();
+        }
+    };
+
     return (
         <div
             className={"cell " + classNames}
             key={x + y}
-            onClick={() => {
-                status !== null
-                    ? alert("Хватит меня нажимать!")
-                    : move(`${y},${x}`);
-            }}
+            onClick={onClickHandler}
         >
             <p>{name}</p>
         </div>
@@ -56,6 +67,19 @@ const Cell = (props) => {
 
 const mapDispatchToProps = {
     move,
+    changeTurn,
 };
 
-export default connect(null, mapDispatchToProps)(Cell);
+/**
+ * mapStateToProps - represents FC which leads redux state value to props of react component
+ *
+ * @param {state} state - redux state
+ * @return {object}
+ */
+const mapStateToProps = (state) => {
+    return {
+        turn: state.turnReducer,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cell);

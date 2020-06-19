@@ -1,7 +1,5 @@
 import { combineReducers } from "redux";
-import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
-
-let order = false;
+import { MAKE_A_MOVE, SET_SUCCESS_VALUE, CHANGE_TURN } from "./actions/types";
 
 /**
  * Create matrix - creates new matrix based on the input
@@ -55,18 +53,36 @@ function matrixReducer(state = createMatrix(7, 10), action) {
      * @return {Array} - return new matrix with a changed cell
      */
     function changeCell() {
-        const [x, y] = action.coords.split(",");
+        const {
+            coords: [x, y],
+            moveTurn,
+        } = action.data;
         const newMatrix = state.slice();
         if (newMatrix[y][x] !== null) return state;
-        newMatrix[y][x] = order;
-
-        order = !order;
+        newMatrix[y][x] = moveTurn;
 
         return newMatrix;
+    }
+}
+
+/**
+ * SuccessVelueReducer - changes amount of point to win
+ *
+ * @param {object} state - amount points
+ * @param {object} action - action creator
+ * @return {object}
+ */
+function turnReducer(state = true, action) {
+    switch (action.value) {
+        case CHANGE_TURN:
+            return !state;
+        default:
+            return !state;
     }
 }
 
 export const ticApp = combineReducers({
     succesValueReducer,
     matrixReducer,
+    turnReducer,
 });
