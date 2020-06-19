@@ -1,5 +1,5 @@
+import { combineReducers } from "redux";
 import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
-import { act } from "react-dom/test-utils";
 
 /**
  * Create matrix - creates new matrix based on the input
@@ -14,11 +14,6 @@ const createMatrix = (h, w) => {
     return arr;
 };
 
-const initialState = {
-    successValue: 3,
-    matrix: createMatrix(7, 10),
-};
-
 /**
  * ticApp - pepresents reducer of this application
  *
@@ -26,32 +21,37 @@ const initialState = {
  * @param {object} action - action creator
  * @return {object}
  */
-function ticApp(state = initialState, action) {
+function succesValueReducer(state = 3, action) {
     switch (action.type) {
         case SET_SUCCESS_VALUE:
             return { ...state, ...{ successValue: action.number } };
-        case MAKE_A_MOVE:
-            return { ...state, ...{ matrix: matrixReducer(state, action) } };
         default:
             return state;
     }
 }
 
 /**
+ * MetrixReducer - change handler for the matrix, creates copy, edit and return new array
  *
  * @param {object} state - Redux state container
  * @param {object} action - action creator
  * @return {object}
  */
-function matrixReducer(state, action) {
+function matrixReducer(state = createMatrix(7, 10), action) {
     const [x, y] = action.coords.split(",");
     const newMatrix = state.matrix.slice();
+    if (newMatrix[y][x] !== "") return state;
     newMatrix[y][x] = true;
 
-    return {
-        ...state,
-        ...{
-            matrix: newMatrix,
-        },
-    };
+    switch (action.type) {
+        case MAKE_A_MOVE:
+            return {
+                ...state,
+                ...{
+                    matrix: newMatrix,
+                },
+            };
+        default:
+            return state;
+    }
 }
