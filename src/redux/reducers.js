@@ -9,7 +9,7 @@ import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
  * @return {Array}
  */
 const createMatrix = (h, w) => {
-    const arr = new Array(h).fill().map(() => new Array(w).fill([null]));
+    const arr = new Array(h).fill().map(() => new Array(w).fill(null));
     arr[0][0] = true;
     return arr;
 };

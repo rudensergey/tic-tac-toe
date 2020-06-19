@@ -13,34 +13,24 @@ import "./--default.css";
  * @return {HTMLElement}
  */
 const Game = (props) => {
-    const { initialHeight, initialWidth } = props;
+    const { matrix } = props;
 
-    /**
-     * Create matrix - creates new matrix based on the input
-     *
-     * @param {number} h - pepresents height of the matrix
-     * @param {number} w - represent width of the matrix
-     * @return {Array}
-     */
-    const createMatrix = (h, w) =>
-        new Array(h).fill().map(() => new Array(w).fill([null]));
-
-    console.log(createMatrix(initialHeight, initialWidth));
+    console.log(matrix);
 
     return (
         <div
             className="game"
             style={{
-                gridTemplateColumns: `repeat(${initialWidth}, 100px)`,
-                gridTemplateRows: `repeat(${initialHeight}, 100px)`,
+                gridTemplateColumns: `repeat(${matrix.length}, 100px)`,
+                gridTemplateRows: `repeat(${matrix[0].length}, 100px)`,
             }}
         >
-            {createMatrix(initialHeight, initialWidth).map((a, aIndex) =>
+            {matrix.map((a, aIndex) =>
                 a.map((b, bIndex) => (
                     <Cell
                         coords={{ aIndex, bIndex }}
                         key={aIndex + bIndex}
-                        status={b[0]}
+                        status={b}
                     />
                 ))
             )}
@@ -48,4 +38,16 @@ const Game = (props) => {
     );
 };
 
-export default connect()(Game);
+/**
+ * mapStateToProps - represents FC which leads redux state value to props of react component
+ *
+ * @param {state} state - redux state
+ * @return {object}
+ */
+const mapStateToProps = (state) => {
+    return {
+        matrix: state.matrixReducer,
+    };
+};
+
+export default connect(mapStateToProps, null)(Game);
