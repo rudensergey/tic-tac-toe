@@ -5,8 +5,8 @@ import "./--default.css";
  * Cell - represents one cell of the table
  *
  * @param {props} props - includes:
- * @param {object} coords - coordinates of that cell in the matrix
- * @param {string | boolean} status - current value of this cell
+ * @param {object} coords - coordinates of this cell in the matrix
+ * @param {string | boolean} status - current status of this cell: (true = tac / false = toe / success = success / "" = empty)
  * @return {HTMLElement}
  */
 export const Cell = (props) => {
