@@ -1,0 +1,59 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "google",
+        "plugin:react-hooks/recommended",
+        "eslint:recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "plugins": ["react"],
+
+    "rules": {
+        "no-console": 0,
+        "no-invalid-this": 0,
+        "require-jsdoc": [
+            "warn",
+            {
+                "require": {
+                    "FunctionDeclaration": true,
+                    "MethodDefinition": false,
+                    "ClassDeclaration": true,
+                    "ArrowFunctionExpression": true,
+                    "FunctionExpression": true
+                }
+            }
+        ],
+        "operator-linebreak": 0,
+        "max-len": 0,
+        "quotes": ["warn", "double"],
+        "object-curly-spacing": 0,
+        "indent": 0,
+        "comma-dangle": 0,
+        "react/jsx-uses-vars": 1,
+        "react/display-name": 0,
+        "no-unused-vars": "warn",
+        "no-unexpected-multiline": "warn",
+        "react/prop-types": 0
+    },
+
+    "parser": "babel-eslint",
+
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "15.6.1"
+        }
+    }
+}

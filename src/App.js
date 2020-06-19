@@ -1,7 +1,7 @@
 import React from "react";
+import "./style/app.css";
+import { ExtendLayer } from "./components/library";
 
-function App() {
-    return <div>Hello World!</div>;
-}
+const App = () => <ExtendLayer />;
 
 export default App;

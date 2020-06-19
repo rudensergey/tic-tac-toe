@@ -1,0 +1,18 @@
+.game {
+    height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: aliceblue;
+
+    display: grid;
+    grid-gap: 10px;
+}
+
+.game__cell {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.164);
+    background-color: aquamarine;
+}
