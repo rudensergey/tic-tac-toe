@@ -15,9 +15,9 @@ const createMatrix = (h, w) => {
 };
 
 /**
- * ticApp - pepresents reducer of this application
+ * SuccessVelueReducer - changes amount of point to win
  *
- * @param {object} state - Redux state container
+ * @param {object} state - amount points
  * @param {object} action - action creator
  * @return {object}
  */
@@ -31,27 +31,41 @@ function succesValueReducer(state = 3, action) {
 }
 
 /**
- * MetrixReducer - change handler for the matrix, creates copy, edit and return new array
+ * MatrixReducer - change handler for the matrix, creates copy, edit and return new array
  *
  * @param {object} state - Redux state container
  * @param {object} action - action creator
  * @return {object}
  */
 function matrixReducer(state = createMatrix(7, 10), action) {
-    const [x, y] = action.coords.split(",");
-    const newMatrix = state.matrix.slice();
-    if (newMatrix[y][x] !== "") return state;
-    newMatrix[y][x] = true;
-
     switch (action.type) {
         case MAKE_A_MOVE:
             return {
                 ...state,
                 ...{
-                    matrix: newMatrix,
+                    matrix: changeCell(),
                 },
             };
         default:
             return state;
     }
+
+    /**
+     * changeCell - edit certain cell in matrix and return new one
+     *
+     * @return {Array} - return new matrix with a changed cell
+     */
+    function changeCell() {
+        const [x, y] = action.coords.split(",");
+        const newMatrix = state.matrix.slice();
+        if (newMatrix[y][x] !== "") return state;
+        newMatrix[y][x] = true;
+
+        return newMatrix;
+    }
 }
+
+export const ticApp = combineReducers({
+    succesValueReducer,
+    matrixReducer,
+});
