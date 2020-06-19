@@ -1,0 +1,10 @@
+.extendlayer {
+    height: min-content;
+    width: 100vw;
+    padding-top: 100px;
+    margin: 0px auto;
+
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    justify-content: center;
+}
