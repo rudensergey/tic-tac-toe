@@ -8,8 +8,11 @@ import { act } from "react-dom/test-utils";
  * @param {number} w - represent width of the matrix
  * @return {Array}
  */
-const createMatrix = (h, w) =>
-    new Array(h).fill().map(() => new Array(w).fill([""]));
+const createMatrix = (h, w) => {
+    const arr = new Array(h).fill().map(() => new Array(w).fill([""]));
+    arr[0][0] = true;
+    return arr;
+};
 
 const initialState = {
     successValue: 3,
@@ -26,8 +29,29 @@ const initialState = {
 function ticApp(state = initialState, action) {
     switch (action.type) {
         case SET_SUCCESS_VALUE:
-            return Object.assign({}, state, { successValue: action.number });
+            return { ...state, ...{ successValue: action.number } };
+        case MAKE_A_MOVE:
+            return { ...state, ...{ matrix: matrixReducer(state, action) } };
         default:
             return state;
     }
+}
+
+/**
+ *
+ * @param {object} state - Redux state container
+ * @param {object} action - action creator
+ * @return {object}
+ */
+function matrixReducer(state, action) {
+    const [x, y] = action.coords.split(",");
+    const newMatrix = state.matrix.slice();
+    newMatrix[y][x] = true;
+
+    return {
+        ...state,
+        ...{
+            matrix: newMatrix,
+        },
+    };
 }
