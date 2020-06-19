@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
 
+let order = false;
+
 /**
  * Create matrix - creates new matrix based on the input
  *
@@ -56,7 +58,9 @@ function matrixReducer(state = createMatrix(7, 10), action) {
         const [x, y] = action.coords.split(",");
         const newMatrix = state.slice();
         if (newMatrix[y][x] !== null) return state;
-        newMatrix[y][x] = true;
+        newMatrix[y][x] = order;
+
+        order = !order;
 
         return newMatrix;
     }
