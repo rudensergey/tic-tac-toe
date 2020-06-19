@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Game } from "../library";
-import "./extendlayer.css";
+import "./--default.css";
 
 /**
  * ExtendLayer - represent layer which calculate the screen width, heigth and push it to the props
