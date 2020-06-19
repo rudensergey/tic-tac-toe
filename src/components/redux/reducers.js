@@ -1,5 +1,3 @@
-/* eslint-disable require-jsdoc */
-import { combineReducers } from "redux";
 import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
 
 // FUNCTIONS
@@ -20,66 +18,52 @@ const createMatrix = (h, w) => {
 /**
  * changeCell - edit certain cell in matrix and return new one
  *
- * @param {object} data - x and y position for the matrix
+ * @param {Array} coords - x and y position for the matrix
+ * @param {boolean} turn
  * @param {Array} state - origin matrix
  * @return {Array} - return new matrix with a changed cell
  */
-function changeCell(data, state) {
-    const {
-        coords: [x, y],
-        moveTurn,
-    } = data;
+function changeCell(coords, turn, state) {
+    const [y, x] = coords;
     const newMatrix = state.slice();
     if (newMatrix[y][x] !== null) return state;
-    newMatrix[y][x] = moveTurn;
+    newMatrix[y][x] = turn;
 
     return newMatrix;
 }
 
+const initialState = {
+    turnOrder: false,
+    matrix: createMatrix(7, 10),
+    successValue: 3,
+};
+
 // REDUCERS
 
 /**
- * SuccessVelueReducer - changes amount of point to win
+ * app - represent reduce component
  *
- * @param {object} state - amount points
+ * @param {object} state - redux state container
  * @param {object} action - action creator
  * @return {object}
  */
-function succesValueReducer(state = 3, action) {
+export function app(state = initialState, action) {
     switch (action.type) {
+        case MAKE_A_MOVE:
+            return {
+                ...state,
+                ...{
+                    turnOrder: !state.turnOrder,
+                    matrix: changeCell(
+                        action.coords,
+                        state.turnOrder,
+                        state.matrix
+                    ),
+                },
+            };
         case SET_SUCCESS_VALUE:
             return { ...state, ...{ successValue: action.number } };
         default:
             return state;
     }
 }
-
-/**
- * MatrixReducer - change handler for the matrix, creates copy, edit and return new array
- *
- * @param {object} state - Redux state container
- * @param {object} action - action creator
- * @return {object}
- */
-function matrixReducer(state = createMatrix(7, 10), action) {
-    switch (action.type) {
-        case MAKE_A_MOVE:
-            return changeCell(action.data, state);
-        default:
-            return state;
-    }
-}
-
-/**
- * SuccessVelueReducer - changes amount of point to win
- *
- * @param {object} state - amount points
- * @return {boolean}
- */
-const turnReducer = (state = true) => !state;
-
-export const ticApp = combineReducers({
-    succesValueReducer,
-    matrixReducer,
-    turnReducer,
-});

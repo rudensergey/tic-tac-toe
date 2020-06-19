@@ -46,7 +46,7 @@ const Game = (props) => {
  */
 const mapStateToProps = (state) => {
     return {
-        matrix: state.matrixReducer,
+        matrix: state.matrix,
     };
 };
 

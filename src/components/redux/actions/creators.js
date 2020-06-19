@@ -1,15 +1,15 @@
-import { MAKE_A_MOVE, SET_SUCCESS_VALUE, CHANGE_TURN } from "./types";
+import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./types";
 
 /**
  * move - return
  *
- * @param {coords} data - input data which includes x and y coordintates of a cell in the matrix + move turn
+ * @param {Array} coords - input data which includes x and y coordintates of a cell
  * @return {actionCrea} - action creator
  */
-export function move(data) {
+export function move(coords) {
     return {
         type: MAKE_A_MOVE,
-        data,
+        coords,
     };
 }
 
@@ -25,21 +25,5 @@ export function setSuccesValue(number) {
     return {
         type: SET_SUCCESS_VALUE,
         number,
-    };
-}
-
-/**
- * MoveTurn - set turn for next player
- *
- * P.S - I can change this turn-order with using only React and remove this action, but if we're gonna follow the Redux guidelines -
- * we need to put all logic inside
- *
- * @param {boolean} value - current order turn
- * @return {object} - action creator
- */
-export function changeTurn(value) {
-    return {
-        type: CHANGE_TURN,
-        value,
     };
 }
