@@ -22,7 +22,7 @@ export const Game = (props) => {
      * @return {Array}
      */
     const createMatrix = (h, w) =>
-        new Array(h).fill().map(() => new Array(w).fill([""]));
+        new Array(h).fill().map(() => new Array(w).fill([null]));
 
     console.log(createMatrix(initialHeight, initialWidth));
 

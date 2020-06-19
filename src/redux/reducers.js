@@ -9,7 +9,7 @@ import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
  * @return {Array}
  */
 const createMatrix = (h, w) => {
-    const arr = new Array(h).fill().map(() => new Array(w).fill([""]));
+    const arr = new Array(h).fill().map(() => new Array(w).fill([null]));
     arr[0][0] = true;
     return arr;
 };
@@ -43,7 +43,7 @@ function matrixReducer(state = createMatrix(7, 10), action) {
             return {
                 ...state,
                 ...{
-                    matrix: changeCell(),
+                    matrix: changeCell(action),
                 },
             };
         default:
@@ -53,12 +53,14 @@ function matrixReducer(state = createMatrix(7, 10), action) {
     /**
      * changeCell - edit certain cell in matrix and return new one
      *
+     * @param {number} x - position in row
+     * @param {number} y - position in column
      * @return {Array} - return new matrix with a changed cell
      */
     function changeCell() {
         const [x, y] = action.coords.split(",");
         const newMatrix = state.matrix.slice();
-        if (newMatrix[y][x] !== "") return state;
+        if (newMatrix[y][x] !== null) return state;
         newMatrix[y][x] = true;
 
         return newMatrix;
