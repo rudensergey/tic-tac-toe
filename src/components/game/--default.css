@@ -8,3 +8,23 @@
     grid-gap: 10px;
     box-sizing: border-box;
 }
+
+.game-appearance {
+    animation-name: game-appearance;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes game-appearance {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

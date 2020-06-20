@@ -17,7 +17,7 @@ const Game = (props) => {
 
     return (
         <div
-            className="game"
+            className="game game-appearance"
             style={{
                 gridTemplateColumns: `repeat(${matrix.length}, 100px)`,
                 gridTemplateRows: `repeat(${matrix[0].length}, 100px)`,
