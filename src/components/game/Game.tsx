@@ -1,6 +1,9 @@
 // REACT
 import React, { useEffect } from "react";
 
+// INTERFACES
+import { IState, IGame } from "../typescript/interfaces";
+
 // REDUX
 import { connect } from "react-redux";
 
@@ -24,7 +27,7 @@ import "./--default.css";
  *
  * @return {HTMLElement}
  */
-const Game = (props) => {
+const Game = (props: IGame) => {
     const { matrix, extendField } = props;
 
     /**
@@ -76,11 +79,6 @@ const Game = (props) => {
     );
 };
 
-/**
- * mapStateToProps - represents FC which leads redux state value to props of react component
- *
- * @param {state} state - redux state
- * @return {object}
- */
-
-export default connect(({ matrix }) => ({ matrix }), { extendField })(Game);
+export default connect(({ matrix }: IState) => ({ matrix }), { extendField })(
+    Game
+);

@@ -1,6 +1,9 @@
 // REACT
 import React, { useState, useEffect } from "react";
 
+// INTERFACES
+import { IState } from "./components/typescript/interfaces";
+
 // REDUX
 import { connect } from "react-redux";
 
@@ -31,11 +34,4 @@ const App = () => {
     return <>{loaded ? <Game /> : <Loader />}</>;
 };
 
-/**
- * mapStateToProps - represents FC which leads redux state value to props of react component
- *
- * @param {state} state - redux state
- * @return {object}
- */
-
-export default connect(({ matrix }) => ({ matrix }), null)(App);
+export default connect(({ matrix }: IState) => ({ matrix }), null)(App);

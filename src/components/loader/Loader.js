@@ -16,7 +16,7 @@ import "./--default.css";
  * Loader - componet hold user while interface isn't downloaded
  *
  * @param {props} props
- * @return {HTMLElement}
+ * @return {JSX}
  */
 const Loader = (props) => {
     return (

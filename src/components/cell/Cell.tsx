@@ -1,6 +1,9 @@
 // REACT
 import React from "react";
 
+//INTERFACES & TYPES
+import { ICell } from "../typescript/interfaces";
+
 // REDUX
 import { connect } from "react-redux";
 
@@ -22,7 +25,7 @@ import "./--default.css";
  * @param {string | boolean} status - current status of this cell: (true = tac / false = toe / success = success / "" = empty)
  * @return {HTMLElement}
  */
-const Cell = (props) => {
+const Cell = (props: ICell) => {
     const {
         status,
         coords: { aIndex: y, bIndex: x },
