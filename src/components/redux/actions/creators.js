@@ -1,4 +1,4 @@
-import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./types";
+import { MAKE_A_MOVE, SET_SUCCESS_VALUE, EXTEND_FIELD } from "./types";
 
 /**
  * move - return
@@ -25,5 +25,16 @@ export function setSuccesValue(number) {
     return {
         type: SET_SUCCESS_VALUE,
         number,
+    };
+}
+
+/**
+ * Extend field action
+ *
+ * @return {object} - fires increace field reducer
+ */
+export function extendField() {
+    return {
+        type: EXTEND_FIELD,
     };
 }

@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { extendField } from "../redux/actions/creators";
 import Cell from "../cell/Cell";
 import "./--default.css";
 
@@ -14,18 +15,18 @@ import "./--default.css";
  * @return {HTMLElement}
  */
 const Game = (props) => {
-    const { matrix } = props;
+    const { matrix, extendField } = props;
 
     useEffect(() => {
         const handleResize = () => {
             const limit =
-                document.getElementById("game").getBoundingClientRect().width -
+                document.getElementById("game").getBoundingClientRect().height -
                 400;
 
             const scroll =
                 document.documentElement.clientHeight + window.pageYOffset;
 
-            if (limit < scroll) alert("extend the display");
+            if (limit < scroll) extendField();
         };
 
         window.addEventListener("scroll", handleResize);
@@ -40,7 +41,7 @@ const Game = (props) => {
             id="game"
             className="game game-appearance"
             style={{
-                gridTemplateColumns: `repeat(${matrix.length}, 100px)`,
+                gridTemplateColumns: `repeat(${matrix[0].length}, 100px)`,
                 gridTemplateRows: `repeat(${matrix.length}, 100px)`,
             }}
         >
@@ -66,4 +67,4 @@ const Game = (props) => {
  * @return {object}
  */
 
-export default connect(({ matrix }) => ({ matrix }), null)(Game);
+export default connect(({ matrix }) => ({ matrix }), { extendField })(Game);

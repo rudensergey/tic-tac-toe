@@ -1,6 +1,6 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
+import { MAKE_A_MOVE, SET_SUCCESS_VALUE, EXTEND_FIELD } from "./actions/types";
 
 // FUNCTIONS ======================================================
 
@@ -11,9 +11,9 @@ import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
  * @param {number} w - represent width of the matrix
  * @return {Array}
  */
-const createMatrix = (s) => {
+const createMatrix = (s, init) => {
     const arr = new Array(s).fill().map(() => new Array(s).fill(null));
-    arr[0][0] = true;
+    if (init) arr[0][0] = true;
     return arr;
 };
 
@@ -36,13 +36,14 @@ function changeCell(coords, turn, state, successVal) {
 
 function checkWin(matrix, turn, y, x, val) {
     const newMatrix = matrix.slice();
+    const matrixHeght = newMatrix.length;
 
-    calculateDirection(y, x, 0, 1);
-    calculateDirection(y, x, 1, 0);
-    calculateDirection(y, x, 1, 1);
-    calculateDirection(y, x, +1, -1);
+    calculateDirection(y, x, 0, 1, matrixHeght);
+    calculateDirection(y, x, 1, 0, matrixHeght);
+    calculateDirection(y, x, 1, 1, matrixHeght);
+    calculateDirection(y, x, +1, -1, matrixHeght);
 
-    function calculateDirection(y, x, changeX, changeY) {
+    function calculateDirection(y, x, changeX, changeY, mHight) {
         let initX = x;
         let initY = y;
         let reverseX = x;
@@ -55,8 +56,11 @@ function checkWin(matrix, turn, y, x, val) {
             initX += changeX;
             initY += changeY;
 
+            // console.log(newMatrix[0][0].length);
+            // console.log(newMatrix[0].length);
+
             if (initX < 0 || initX > newMatrix[0][0].length - 1) break;
-            if (initY < 0 || initY > newMatrix[0].length - 1) break;
+            if (initY < 0 || initY > mHight - 1) break;
 
             if (newMatrix[initY][initX] === turn) {
                 sum++;
@@ -79,8 +83,11 @@ function checkWin(matrix, turn, y, x, val) {
             reverseX -= changeX;
             reverseY -= changeY;
 
+            // console.log(newMatrix[0][0].length);
+            // console.log(newMatrix[0].length);
+
             if (reverseX < 0 || reverseX > newMatrix[0][0].length - 1) break;
-            if (reverseY < 0 || reverseY > newMatrix[0].length - 1) break;
+            if (reverseY < 0 || reverseY > mHight - 1) break;
 
             if (newMatrix[reverseY][reverseX] === turn) {
                 sum++;
@@ -105,7 +112,7 @@ function checkWin(matrix, turn, y, x, val) {
 
 const initialState = {
     turnOrder: false,
-    matrix: createMatrix(30),
+    matrix: createMatrix(10, true),
     successValue: 3,
 };
 
@@ -133,6 +140,11 @@ export function app(state = initialState, action) {
             };
         case SET_SUCCESS_VALUE:
             return { ...state, ...{ successValue: action.number } };
+        case EXTEND_FIELD:
+            return {
+                ...state,
+                matrix: [...state.matrix, ...createMatrix(10, false)],
+            };
         default:
             return state;
     }
