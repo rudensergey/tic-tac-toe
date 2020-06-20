@@ -95,9 +95,6 @@ function checkWin(
             initX += changeX;
             initY += changeY;
 
-            // console.log(newMatrix[0][0].length);
-            // console.log(newMatrix[0].length);
-
             if (initX < 0 || initX > mWidth - 1) break;
             if (initY < 0 || initY > mHight - 1) break;
 
@@ -121,9 +118,6 @@ function checkWin(
         for (let i = 0; i < val - 1; i++) {
             reverseX -= changeX;
             reverseY -= changeY;
-
-            // console.log(newMatrix[0][0].length);
-            // console.log(newMatrix[0].length);
 
             if (reverseX < 0 || reverseX > mWidth - 1) break;
             if (reverseY < 0 || reverseY > mHight - 1) break;
