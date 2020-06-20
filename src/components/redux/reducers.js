@@ -11,14 +11,14 @@ import { MAKE_A_MOVE, SET_SUCCESS_VALUE } from "./actions/types";
  * @param {number} w - represent width of the matrix
  * @return {Array}
  */
-const createMatrix = (h, w) => {
-    const arr = new Array(h).fill().map(() => new Array(w).fill(null));
+const createMatrix = (s) => {
+    const arr = new Array(s).fill().map(() => new Array(s).fill(null));
     arr[0][0] = true;
     return arr;
 };
 
 /**
- * changeCell - edit certain cell in matrix and return new one
+ * changeCell - edit certain cell in matrix, return new one and show who won
  *
  * @param {Array} coords - x and y position for the matrix
  * @param {boolean} turn
@@ -49,7 +49,7 @@ function checkWin(matrix, turn, y, x, val) {
         let reverseY = y;
 
         let sum = 1;
-        let arr = [[y, x]];
+        const arr = [[y, x]];
 
         for (let i = 0; i < val - 1; i++) {
             initX += changeX;
@@ -59,12 +59,16 @@ function checkWin(matrix, turn, y, x, val) {
             if (initY < 0 || initY > newMatrix[0].length - 1) break;
 
             if (newMatrix[initY][initX] === turn) {
-                alert("+1");
                 sum++;
                 arr.push([initY, initX]);
 
                 if (sum === 3) {
-                    arr.map((a) => (newMatrix[a[0]][a[1]] = "success"));
+                    arr.map(
+                        (a) =>
+                            (newMatrix[a[0]][a[1]] = turn
+                                ? "success-tac"
+                                : "success-toe")
+                    );
                 }
             } else {
                 break;
@@ -79,12 +83,16 @@ function checkWin(matrix, turn, y, x, val) {
             if (reverseY < 0 || reverseY > newMatrix[0].length - 1) break;
 
             if (newMatrix[reverseY][reverseX] === turn) {
-                alert("+2");
                 sum++;
                 arr.push([reverseY, reverseX]);
 
                 if (sum === 3) {
-                    arr.map((a) => (newMatrix[a[0]][a[1]] = "success"));
+                    arr.map(
+                        (a) =>
+                            (newMatrix[a[0]][a[1]] = turn
+                                ? "success-tac"
+                                : "success-toe")
+                    );
                 }
             } else {
                 break;
@@ -97,7 +105,7 @@ function checkWin(matrix, turn, y, x, val) {
 
 const initialState = {
     turnOrder: false,
-    matrix: createMatrix(4, 4),
+    matrix: createMatrix(30),
     successValue: 3,
 };
 

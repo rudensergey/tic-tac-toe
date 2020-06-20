@@ -1,12 +1,12 @@
 import React from "react";
 import "./style/app.css";
-import ExtendLayer from "./components/extendlayer/Extendlayer";
+import Game from "./components/game/Game";
 
 /**
  * Main app component
  *
  * @return {Component}
  */
-const App = () => <ExtendLayer />;
+const App = () => <Game />;
 
 export default App;

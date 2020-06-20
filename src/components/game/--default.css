@@ -1,7 +1,8 @@
 .game {
     height: min-content;
     width: min-content;
-    padding: 20px;
+    padding: 100px;
+    margin: 0px auto;
 
     display: grid;
     grid-gap: 10px;

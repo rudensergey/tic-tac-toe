@@ -30,8 +30,12 @@ const Cell = (props) => {
             name = "X";
             classNames = "cell-toe";
             break;
-        case "success":
-            name = "";
+        case "success-tac":
+            name = "O";
+            classNames = "cell-success";
+            break;
+        case "success-toe":
+            name = "X";
             classNames = "cell-success";
             break;
         default:

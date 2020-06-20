@@ -15,8 +15,6 @@ import "./--default.css";
 const Game = (props) => {
     const { matrix } = props;
 
-    console.log(matrix);
-
     return (
         <div
             className="game"

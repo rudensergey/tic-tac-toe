@@ -1,9 +1,0 @@
-.extendlayer {
-    height: min-content;
-    width: 100vw;
-    padding: 100px 0px;
-    margin: 0px auto;
-
-    display: flex;
-    justify-content: center;
-}
