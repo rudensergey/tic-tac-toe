@@ -28,8 +28,7 @@ import "./--default.css";
  *
  * @return {HTMLElement}
  */
-const Game = (props: IGame) => {
-    const { matrix, extendField, successValue } = props;
+const Game = ({ matrix, extendField, successValue }: IGame) => {
     const [tac, setTac] = useState(0);
     const [toe, setToe] = useState(0);
 
@@ -56,7 +55,7 @@ const Game = (props: IGame) => {
         return () => {
             window.removeEventListener("scroll", handleResize);
         };
-    });
+    }, [window.pageYOffset]);
 
     return (
         <>
