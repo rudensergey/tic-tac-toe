@@ -66,7 +66,7 @@ function checkWin(matrix, turn, y, x, val) {
                 sum++;
                 arr.push([initY, initX]);
 
-                if (sum === 3) {
+                if (sum === val) {
                     arr.map(
                         (a) =>
                             (newMatrix[a[0]][a[1]] = turn
@@ -93,7 +93,7 @@ function checkWin(matrix, turn, y, x, val) {
                 sum++;
                 arr.push([reverseY, reverseX]);
 
-                if (sum === 3) {
+                if (sum === val) {
                     arr.map(
                         (a) =>
                             (newMatrix[a[0]][a[1]] = turn
@@ -113,7 +113,7 @@ function checkWin(matrix, turn, y, x, val) {
 const initialState = {
     turnOrder: false,
     matrix: createMatrix(10, true),
-    successValue: 3,
+    successValue: 5,
 };
 
 // REDUCERS ======================================================
