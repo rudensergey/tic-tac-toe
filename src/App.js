@@ -26,10 +26,5 @@ const App = () => {
  * @param {state} state - redux state
  * @return {object}
  */
-const mapStateToProps = (state) => {
-    return {
-        matrix: state.matrix,
-    };
-};
 
-export default connect(mapStateToProps, null)(App);
+export default connect(({ matrix }) => ({ matrix }), null)(App);

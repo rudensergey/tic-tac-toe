@@ -65,10 +65,5 @@ const Game = (props) => {
  * @param {state} state - redux state
  * @return {object}
  */
-const mapStateToProps = (state) => {
-    return {
-        matrix: state.matrix,
-    };
-};
 
-export default connect(mapStateToProps, null)(Game);
+export default connect(({ matrix }) => ({ matrix }), null)(Game);

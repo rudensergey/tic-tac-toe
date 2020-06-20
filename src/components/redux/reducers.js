@@ -123,15 +123,13 @@ export function app(state = initialState, action) {
         case MAKE_A_MOVE:
             return {
                 ...state,
-                ...{
-                    turnOrder: !state.turnOrder,
-                    matrix: changeCell(
-                        action.coords,
-                        state.turnOrder,
-                        state.matrix,
-                        state.successValue
-                    ),
-                },
+                turnOrder: !state.turnOrder,
+                matrix: changeCell(
+                    action.coords,
+                    state.turnOrder,
+                    state.matrix,
+                    state.successValue
+                ),
             };
         case SET_SUCCESS_VALUE:
             return { ...state, ...{ successValue: action.number } };
