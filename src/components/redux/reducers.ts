@@ -7,13 +7,13 @@ import { IAction } from "../typescript/interfaces";
 /**
  * Create matrix - creates new matrix based on the input
  *
- * @param {number} s - pepresents height and width of the matrix
+ * @param {number} size - pepresents height and width of the matrix
  * @param {boolean} init - represent including the initial value
  * @return {Array}
  */
-const createMatrix = (s: number, init: boolean) => {
-    const arr = new Array(s).fill(0).map(() => new Array(s).fill(null));
-    if (init) arr[0][0] = true;
+const createMatrix = (size: number, initValue: boolean) => {
+    const arr = new Array(size).fill(0).map(() => new Array(size).fill(null));
+    if (initValue) arr[0][0] = true;
     return arr;
 };
 
@@ -21,42 +21,42 @@ const createMatrix = (s: number, init: boolean) => {
  * changeCell - edit certain cell in matrix, return new one and show who won
  *
  * @param {Array} coords - x and y position for the matrix
- * @param {boolean} turn - current turn
+ * @param {boolean} playerTurn - current turn
  * @param {Array} state - origin matrix
- * @param {number} successVal - points needed to win
+ * @param {number} successScore - points needed to win
  * @return {Array} - return new matrix with a changed cell
  */
 function changeCell(
     coords: number[],
-    turn: boolean,
+    playerTurn: boolean,
     state: TypeStatus[][],
-    successVal: number
+    successScore: number
 ) {
     const [y, x] = coords;
     const newMatrix = state.slice();
     if (newMatrix[y][x] !== null) return state;
-    newMatrix[y][x] = turn;
+    newMatrix[y][x] = playerTurn;
 
-    return checkWin(newMatrix, turn, y, x, successVal);
+    return checkWin(newMatrix, playerTurn, y, x, successScore);
 }
 
 /**
  * CheckWin - represent checking handler for deetermitaion of winner
  *
  * @param {array} matrix - input matrix which will be returned
- * @param {boolean} turn - player turn
+ * @param {boolean} playerTurn - player turn
  * @param {number} y - initial coordinate of row
  * @param {number} x - initial coordinate of column
- * @param {number} val - scores needed to win
+ * @param {number} successScore - scores needed to win
  *
  * @return {object} - new matrix
  */
 function checkWin(
     matrix: TypeStatus[][],
-    turn: boolean,
+    playerTurn: boolean,
     y: number,
     x: number,
-    val: number
+    successScore: number
 ) {
     const newMatrix = matrix.slice();
     const matrixHeght = newMatrix.length;
@@ -73,39 +73,40 @@ function checkWin(
      * @param {*} x - initial coordinate of column
      * @param {*} changeX - direction
      * @param {*} changeY - direction
-     * @param {*} mHight - height of the matrix (needed to determine limit)
+     * @param {*} matrixHight - height of the matrix (needed to determine limit)
+	 * @param {*} matrixWidth - width of the matrix (needed to determine limit)
      */
     function calculateDirection(
         y: number,
         x: number,
         changeX: number,
         changeY: number,
-        mHight: number,
-        mWidth: number
+        matrixHight: number,
+        matrixWidth: number
     ) {
-        let initX = x;
-        let initY = y;
+        let initialX = x;
+        let initialY = y;
         let reverseX = x;
         let reverseY = y;
 
         let sum = 1;
         const arr = [[y, x]];
 
-        for (let i = 0; i < val - 1; i++) {
-            initX += changeX;
-            initY += changeY;
+        for (let i = 0; i < successScore - 1; i++) {
+            initialX += changeX;
+            initialY += changeY;
 
-            if (initX < 0 || initX > mWidth - 1) break;
-            if (initY < 0 || initY > mHight - 1) break;
+            if (initialX < 0 || initialX > matrixWidth - 1) break;
+            if (initialY < 0 || initialY > matrixHight - 1) break;
 
-            if (newMatrix[initY][initX] === turn) {
+            if (newMatrix[initialY][initialX] === playerTurn) {
                 sum++;
-                arr.push([initY, initX]);
+                arr.push([initialY, initialX]);
 
-                if (sum === val) {
+                if (sum === successScore) {
                     arr.map(
                         (a) =>
-                            (newMatrix[a[0]][a[1]] = turn
+                            (newMatrix[a[0]][a[1]] = playerTurn
                                 ? "success-tac"
                                 : "success-toe")
                     );
@@ -115,21 +116,21 @@ function checkWin(
             }
         }
 
-        for (let i = 0; i < val - 1; i++) {
+        for (let i = 0; i < successScore - 1; i++) {
             reverseX -= changeX;
             reverseY -= changeY;
 
-            if (reverseX < 0 || reverseX > mWidth - 1) break;
-            if (reverseY < 0 || reverseY > mHight - 1) break;
+            if (reverseX < 0 || reverseX > matrixWidth - 1) break;
+            if (reverseY < 0 || reverseY > matrixHight - 1) break;
 
-            if (newMatrix[reverseY][reverseX] === turn) {
+            if (newMatrix[reverseY][reverseX] === playerTurn) {
                 sum++;
                 arr.push([reverseY, reverseX]);
 
-                if (sum === val) {
+                if (sum === successScore) {
                     arr.map(
                         (a) =>
-                            (newMatrix[a[0]][a[1]] = turn
+                            (newMatrix[a[0]][a[1]] = playerTurn
                                 ? "success-tac"
                                 : "success-toe")
                     );
