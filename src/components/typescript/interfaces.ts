@@ -16,12 +16,17 @@ export interface ICell {
 }
 
 export interface IGame {
-    matrix: number[][];
+    matrix: TypeStatus[][];
     extendField: Function;
+    successValue?: number;
 }
 
 export interface IAction {
-	type: string
-	number?: number
-	coords?: any
+    type: string;
+    number?: number;
+    coords?: any;
+}
+
+export interface IWin {
+    type: "tac" | "toe";
 }

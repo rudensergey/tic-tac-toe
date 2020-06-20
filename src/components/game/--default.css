@@ -1,12 +1,22 @@
 .game {
     height: min-content;
     width: min-content;
-    padding: 100px;
+    padding: 50px;
     margin: 0px auto;
 
     display: grid;
     grid-gap: 10px;
     box-sizing: border-box;
+}
+
+.game__text {
+    height: max-content;
+    padding-bottom: 50px;
+
+    font-size: 50px;
+    font-weight: 200;
+
+    grid-column: 1 / -1;
 }
 
 .game-appearance {
