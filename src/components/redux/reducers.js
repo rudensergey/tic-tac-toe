@@ -40,6 +40,7 @@ function checkWin(matrix, turn, y, x, val) {
     calculateDirection(y, x, 0, 1);
     calculateDirection(y, x, 1, 0);
     calculateDirection(y, x, 1, 1);
+    calculateDirection(y, x, +1, -1);
 
     function calculateDirection(y, x, changeX, changeY) {
         let initX = x;
@@ -96,7 +97,7 @@ function checkWin(matrix, turn, y, x, val) {
 
 const initialState = {
     turnOrder: false,
-    matrix: createMatrix(5, 5),
+    matrix: createMatrix(4, 4),
     successValue: 3,
 };
 
