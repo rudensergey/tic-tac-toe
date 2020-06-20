@@ -1,4 +1,6 @@
 import { MAKE_A_MOVE, SET_SUCCESS_VALUE, EXTEND_FIELD } from "./actions/types";
+import { TypeStatus } from "../typescript/types";
+import { IAction } from "../typescript/interfaces";
 
 // FUNCTIONS ======================================================
 
@@ -9,8 +11,8 @@ import { MAKE_A_MOVE, SET_SUCCESS_VALUE, EXTEND_FIELD } from "./actions/types";
  * @param {boolean} init - represent including the initial value
  * @return {Array}
  */
-const createMatrix = (s, init) => {
-    const arr = new Array(s).fill().map(() => new Array(s).fill(null));
+const createMatrix = (s: number, init: boolean) => {
+    const arr = new Array(s).fill(0).map(() => new Array(s).fill(null));
     if (init) arr[0][0] = true;
     return arr;
 };
@@ -24,7 +26,12 @@ const createMatrix = (s, init) => {
  * @param {number} successVal - points needed to win
  * @return {Array} - return new matrix with a changed cell
  */
-function changeCell(coords, turn, state, successVal) {
+function changeCell(
+    coords: number[],
+    turn: boolean,
+    state: TypeStatus[][],
+    successVal: number
+) {
     const [y, x] = coords;
     const newMatrix = state.slice();
     if (newMatrix[y][x] !== null) return state;
@@ -44,14 +51,21 @@ function changeCell(coords, turn, state, successVal) {
  *
  * @return {object} - new matrix
  */
-function checkWin(matrix, turn, y, x, val) {
+function checkWin(
+    matrix: TypeStatus[][],
+    turn: boolean,
+    y: number,
+    x: number,
+    val: number
+) {
     const newMatrix = matrix.slice();
     const matrixHeght = newMatrix.length;
+    const matrixWidth = newMatrix[0].length;
 
-    calculateDirection(y, x, 0, 1, matrixHeght);
-    calculateDirection(y, x, 1, 0, matrixHeght);
-    calculateDirection(y, x, 1, 1, matrixHeght);
-    calculateDirection(y, x, +1, -1, matrixHeght);
+    calculateDirection(y, x, 0, 1, matrixHeght, matrixWidth);
+    calculateDirection(y, x, 1, 0, matrixHeght, matrixWidth);
+    calculateDirection(y, x, 1, 1, matrixHeght, matrixWidth);
+    calculateDirection(y, x, +1, -1, matrixHeght, matrixWidth);
 
     /**
      *
@@ -61,7 +75,14 @@ function checkWin(matrix, turn, y, x, val) {
      * @param {*} changeY - direction
      * @param {*} mHight - height of the matrix (needed to determine limit)
      */
-    function calculateDirection(y, x, changeX, changeY, mHight) {
+    function calculateDirection(
+        y: number,
+        x: number,
+        changeX: number,
+        changeY: number,
+        mHight: number,
+        mWidth: number
+    ) {
         let initX = x;
         let initY = y;
         let reverseX = x;
@@ -77,7 +98,7 @@ function checkWin(matrix, turn, y, x, val) {
             // console.log(newMatrix[0][0].length);
             // console.log(newMatrix[0].length);
 
-            if (initX < 0 || initX > newMatrix[0][0].length - 1) break;
+            if (initX < 0 || initX > mWidth - 1) break;
             if (initY < 0 || initY > mHight - 1) break;
 
             if (newMatrix[initY][initX] === turn) {
@@ -104,7 +125,7 @@ function checkWin(matrix, turn, y, x, val) {
             // console.log(newMatrix[0][0].length);
             // console.log(newMatrix[0].length);
 
-            if (reverseX < 0 || reverseX > newMatrix[0][0].length - 1) break;
+            if (reverseX < 0 || reverseX > mWidth - 1) break;
             if (reverseY < 0 || reverseY > mHight - 1) break;
 
             if (newMatrix[reverseY][reverseX] === turn) {
@@ -143,7 +164,7 @@ const initialState = {
  * @param {object} action - action creator
  * @return {object}
  */
-export function app(state = initialState, action) {
+export function app(state = initialState, action: IAction) {
     switch (action.type) {
         case MAKE_A_MOVE:
             return {

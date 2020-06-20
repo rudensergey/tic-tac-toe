@@ -19,3 +19,9 @@ export interface IGame {
     matrix: number[][];
     extendField: Function;
 }
+
+export interface IAction {
+	type: string
+	number?: number
+	coords?: any
+}
