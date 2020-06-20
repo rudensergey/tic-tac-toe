@@ -1,10 +1,20 @@
+// REACT
 import React from "react";
 import ReactDOM from "react-dom";
 
+// REDUX
 import { Provider } from "react-redux";
+
+// STORE
 import store from "./components/redux/store";
 
+// ACTIONS
+
+// COMPONENTS
 import App from "./App";
+
+// STYLES
+
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(

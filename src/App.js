@@ -1,8 +1,19 @@
+// REACT
 import React, { useState, useEffect } from "react";
+
+// REDUX
 import { connect } from "react-redux";
-import "./style/app.css";
+
+// STORE
+
+// ACTIONS
+
+// COMPONENTS
 import Game from "./components/game/Game";
 import Loader from "./components/loader/Loader";
+
+// STYLES
+import "./style/app.css";
 
 /**
  * Main app component

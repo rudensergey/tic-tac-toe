@@ -1,6 +1,17 @@
+// REACT
 import React from "react";
+
+// REDUX
 import { connect } from "react-redux";
+
+// STORE
+
+// ACTIONS
 import { move } from "../redux/actions/creators";
+
+// COMPONENTS
+
+// STYLES
 import "./--default.css";
 
 /**

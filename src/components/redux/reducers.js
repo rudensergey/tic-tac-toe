@@ -1,5 +1,3 @@
-/* eslint-disable valid-jsdoc */
-/* eslint-disable require-jsdoc */
 import { MAKE_A_MOVE, SET_SUCCESS_VALUE, EXTEND_FIELD } from "./actions/types";
 
 // FUNCTIONS ======================================================
@@ -7,8 +5,8 @@ import { MAKE_A_MOVE, SET_SUCCESS_VALUE, EXTEND_FIELD } from "./actions/types";
 /**
  * Create matrix - creates new matrix based on the input
  *
- * @param {number} h - pepresents height of the matrix
- * @param {number} w - represent width of the matrix
+ * @param {number} s - pepresents height and width of the matrix
+ * @param {boolean} init - represent including the initial value
  * @return {Array}
  */
 const createMatrix = (s, init) => {
@@ -21,8 +19,9 @@ const createMatrix = (s, init) => {
  * changeCell - edit certain cell in matrix, return new one and show who won
  *
  * @param {Array} coords - x and y position for the matrix
- * @param {boolean} turn
+ * @param {boolean} turn - current turn
  * @param {Array} state - origin matrix
+ * @param {number} successVal - points needed to win
  * @return {Array} - return new matrix with a changed cell
  */
 function changeCell(coords, turn, state, successVal) {
@@ -34,6 +33,17 @@ function changeCell(coords, turn, state, successVal) {
     return checkWin(newMatrix, turn, y, x, successVal);
 }
 
+/**
+ * CheckWin - represent checking handler for deetermitaion of winner
+ *
+ * @param {array} matrix - input matrix which will be returned
+ * @param {boolean} turn - player turn
+ * @param {number} y - initial coordinate of row
+ * @param {number} x - initial coordinate of column
+ * @param {number} val - scores needed to win
+ *
+ * @return {object} - new matrix
+ */
 function checkWin(matrix, turn, y, x, val) {
     const newMatrix = matrix.slice();
     const matrixHeght = newMatrix.length;
@@ -43,6 +53,14 @@ function checkWin(matrix, turn, y, x, val) {
     calculateDirection(y, x, 1, 1, matrixHeght);
     calculateDirection(y, x, +1, -1, matrixHeght);
 
+    /**
+     *
+     * @param {number} y - initial coordinate of row
+     * @param {*} x - initial coordinate of column
+     * @param {*} changeX - direction
+     * @param {*} changeY - direction
+     * @param {*} mHight - height of the matrix (needed to determine limit)
+     */
     function calculateDirection(y, x, changeX, changeY, mHight) {
         let initX = x;
         let initY = y;

@@ -1,4 +1,15 @@
+// REACT
 import React from "react";
+
+// REDUX
+
+// STORE
+
+// ACTIONS
+
+// COMPONENTS
+
+// STYLES
 import "./--default.css";
 
 /**

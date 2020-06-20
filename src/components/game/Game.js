@@ -1,8 +1,18 @@
-/* eslint-disable require-jsdoc */
+// REACT
 import React, { useEffect } from "react";
+
+// REDUX
 import { connect } from "react-redux";
+
+// STORE
+
+// ACTIONS
 import { extendField } from "../redux/actions/creators";
+
+// COMPONENTS
 import Cell from "../cell/Cell";
+
+// STYLES
 import "./--default.css";
 
 /**
@@ -17,7 +27,13 @@ import "./--default.css";
 const Game = (props) => {
     const { matrix, extendField } = props;
 
+    /**
+     * UseEffect is watching for changing scroll
+     */
     useEffect(() => {
+        /**
+         * HandleResize is waiting for user scrolls to the bottom and invokes matrix extend action
+         */
         const handleResize = () => {
             const limit =
                 document.getElementById("game").getBoundingClientRect().height -
