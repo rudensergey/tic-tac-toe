@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import "./style/app.css";
 import Game from "./components/game/Game";
 import Loader from "./components/loader/Loader";
@@ -12,9 +13,23 @@ const App = () => {
     const [loaded, setLoader] = useState(false);
 
     useEffect(() => {
+        document.title = "Крестики Нолики";
         setTimeout(() => setLoader(true), 2000);
     });
+
     return <>{loaded ? <Game /> : <Loader />}</>;
 };
 
-export default App;
+/**
+ * mapStateToProps - represents FC which leads redux state value to props of react component
+ *
+ * @param {state} state - redux state
+ * @return {object}
+ */
+const mapStateToProps = (state) => {
+    return {
+        matrix: state.matrix,
+    };
+};
+
+export default connect(mapStateToProps, null)(App);
