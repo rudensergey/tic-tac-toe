@@ -18,7 +18,7 @@ import "./--default.css";
  * @param {props} props
  * @return {JSX}
  */
-const Loader = (props) => {
+const Loader = () => {
     return (
         <div className="loader">
             <h1 className="loader__text game-appearance">Привет :)</h1>

@@ -39,8 +39,8 @@ const Game = (props: IGame) => {
          */
         const handleResize = () => {
             const limit =
-                document.getElementById("game").getBoundingClientRect().height -
-                400;
+                document.getElementById("game")!.getBoundingClientRect()
+                    .height - 400;
 
             const scroll =
                 document.documentElement.clientHeight + window.pageYOffset;
