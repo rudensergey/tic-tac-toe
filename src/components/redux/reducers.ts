@@ -62,55 +62,39 @@ function checkWin(
     const matrixHeght = newMatrix.length;
     const matrixWidth = newMatrix[0].length;
 
-    calculateDirection(y, x, 0, 1, matrixHeght, matrixWidth);
-    calculateDirection(y, x, 1, 0, matrixHeght, matrixWidth);
-    calculateDirection(y, x, 1, 1, matrixHeght, matrixWidth);
-    calculateDirection(y, x, +1, -1, matrixHeght, matrixWidth);
+    calculateDirection(0, 1);
+    calculateDirection(1, 0);
+    calculateDirection(1, 1);
+    calculateDirection(+1, -1);
 
     /**
      *
-     * @param {number} y - initial coordinate of row
-     * @param {*} x - initial coordinate of column
      * @param {*} changeX - direction
      * @param {*} changeY - direction
-     * @param {*} matrixHight - height of the matrix (needed to determine limit)
-	 * @param {*} matrixWidth - width of the matrix (needed to determine limit)
      */
-    function calculateDirection(
-        y: number,
-        x: number,
-        changeX: number,
-        changeY: number,
-        matrixHight: number,
-        matrixWidth: number
-    ) {
-        let initialX = x;
-        let initialY = y;
-        let reverseX = x;
-        let reverseY = y;
+    function calculateDirection(changeX: number, changeY: number) {
+        let initialX = x,
+            initialY = y,
+            reverseX = x,
+            reverseY = y;
 
         let sum = 1;
-        const arr = [[y, x]];
+        const successCells = [[y, x]];
 
         for (let i = 0; i < successScore - 1; i++) {
             initialX += changeX;
             initialY += changeY;
 
-            if (initialX < 0 || initialX > matrixWidth - 1) break;
-            if (initialY < 0 || initialY > matrixHight - 1) break;
+            if (
+                initialX < 0 ||
+                initialX > matrixWidth - 1 ||
+                initialY < 0 ||
+                initialY > matrixHeght - 1
+            )
+                break;
 
             if (newMatrix[initialY][initialX] === playerTurn) {
-                sum++;
-                arr.push([initialY, initialX]);
-
-                if (sum === successScore) {
-                    arr.map(
-                        (a) =>
-                            (newMatrix[a[0]][a[1]] = playerTurn
-                                ? "success-tac"
-                                : "success-toe")
-                    );
-                }
+                sum++ && successCells.push([initialY, initialX]);
             } else {
                 break;
             }
@@ -120,24 +104,28 @@ function checkWin(
             reverseX -= changeX;
             reverseY -= changeY;
 
-            if (reverseX < 0 || reverseX > matrixWidth - 1) break;
-            if (reverseY < 0 || reverseY > matrixHight - 1) break;
+            if (
+                reverseX < 0 ||
+                reverseX > matrixWidth - 1 ||
+                reverseY < 0 ||
+                reverseY > matrixHeght - 1
+            )
+                break;
 
             if (newMatrix[reverseY][reverseX] === playerTurn) {
-                sum++;
-                arr.push([reverseY, reverseX]);
-
-                if (sum === successScore) {
-                    arr.map(
-                        (a) =>
-                            (newMatrix[a[0]][a[1]] = playerTurn
-                                ? "success-tac"
-                                : "success-toe")
-                    );
-                }
+                sum++ && successCells.push([reverseY, reverseX]);
             } else {
                 break;
             }
+        }
+
+        if (sum === successScore) {
+            successCells.map(
+                (a) =>
+                    (newMatrix[a[0]][a[1]] = playerTurn
+                        ? "success-tac"
+                        : "success-toe")
+            );
         }
     }
 
