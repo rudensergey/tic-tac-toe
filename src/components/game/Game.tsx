@@ -29,21 +29,14 @@ import "./--default.css";
  * @return {HTMLElement}
  */
 const Game = ({ matrix, extendField, successValue }: IGame) => {
-    const [tac, setTac] = useState(0);
-    const [toe, setToe] = useState(0);
+    const [tac, setTac] = useState(false);
+    const [toe, setToe] = useState(false);
 
-    /**
-     * UseEffect is watching for changing scroll
-     */
     useEffect(() => {
-        /**
-         * HandleResize is waiting for user scrolls to the bottom and invokes matrix extend action
-         */
         const handleResize = () => {
             const limit =
                 document.getElementById("game")!.getBoundingClientRect()
                     .height - 400;
-
             const scroll =
                 document.documentElement.clientHeight + window.pageYOffset;
 
@@ -75,12 +68,11 @@ const Game = ({ matrix, extendField, successValue }: IGame) => {
                 </h1>
                 {matrix.map((a, aIndex) =>
                     a.map((b, bIndex) => {
-                        if (tac !== 1 && toe !== 1) {
-                            if (b === "success-tac") {
-                                setTimeout(() => setTac(1), 200);
-                            } else if (b === "success-toe") {
-                                setTimeout(() => setToe(1), 200);
-                            }
+                        if (!tac && !toe) {
+                            if (b === "success-tac")
+                                setTimeout(() => setTac(true), 200);
+                            if (b === "success-toe")
+                                setTimeout(() => setToe(true), 200);
                         }
 
                         return (
