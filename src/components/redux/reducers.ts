@@ -22,22 +22,22 @@ const createMatrix = (size: number, initValue: boolean) => {
  *
  * @param {Array} coords - x and y position for the matrix
  * @param {boolean} playerTurn - current turn
- * @param {Array} state - origin matrix
+ * @param {Array} matrix - origin matrix
  * @param {number} successScore - points needed to win
  * @return {Array} - return new matrix with a changed cell
  */
 function changeCell(
     coords: number[],
     playerTurn: boolean,
-    state: TypeStatus[][],
+    matrix: TypeStatus[][],
     successScore: number
 ) {
     const [y, x] = coords;
-    const newMatrix = state.slice();
-    if (newMatrix[y][x] !== null) return state;
-    newMatrix[y][x] = playerTurn;
 
-    return checkWin(newMatrix, playerTurn, y, x, successScore);
+    if (matrix[y][x] !== null) return matrix;
+    matrix[y][x] = playerTurn;
+
+    return checkWin(matrix, playerTurn, y, x, successScore);
 }
 
 /**
@@ -73,53 +73,52 @@ function checkWin(
      * @param {*} changeY - direction
      */
     function calculateDirection(changeX: number, changeY: number) {
-        let initialX = x,
-            initialY = y,
-            reverseX = x,
-            reverseY = y;
+        let _x = x,
+            _y = y,
+            _xReverse = x,
+            _yReverse = y;
 
-        let sum = 1;
         const successCells = [[y, x]];
 
         for (let i = 0; i < successScore - 1; i++) {
-            initialX += changeX;
-            initialY += changeY;
+            _x += changeX;
+            _y += changeY;
 
             if (
-                initialX < 0 ||
-                initialX > matrixWidth - 1 ||
-                initialY < 0 ||
-                initialY > matrixHeght - 1
+                _x < 0 ||
+                _x > matrixWidth - 1 ||
+                _y < 0 ||
+                _y > matrixHeght - 1
             )
                 break;
 
-            if (newMatrix[initialY][initialX] === playerTurn) {
-                sum++ && successCells.push([initialY, initialX]);
+            if (newMatrix[_y][_x] === playerTurn) {
+                successCells.push([_y, _x]);
             } else {
                 break;
             }
         }
 
         for (let i = 0; i < successScore - 1; i++) {
-            reverseX -= changeX;
-            reverseY -= changeY;
+            _xReverse -= changeX;
+            _yReverse -= changeY;
 
             if (
-                reverseX < 0 ||
-                reverseX > matrixWidth - 1 ||
-                reverseY < 0 ||
-                reverseY > matrixHeght - 1
+                _xReverse < 0 ||
+                _xReverse > matrixWidth - 1 ||
+                _yReverse < 0 ||
+                _yReverse > matrixHeght - 1
             )
                 break;
 
-            if (newMatrix[reverseY][reverseX] === playerTurn) {
-                sum++ && successCells.push([reverseY, reverseX]);
+            if (newMatrix[_yReverse][_xReverse] === playerTurn) {
+                successCells.push([_yReverse, _xReverse]);
             } else {
                 break;
             }
         }
 
-        if (sum === successScore) {
+        if (successCells.length === successScore) {
             successCells.map(
                 (a) =>
                     (newMatrix[a[0]][a[1]] = playerTurn
@@ -156,7 +155,7 @@ export function app(state = initialState, action: IAction) {
                 matrix: changeCell(
                     action.coords,
                     state.turnOrder,
-                    state.matrix,
+                    state.matrix.slice(),
                     state.successValue
                 ),
             };
